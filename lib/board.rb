@@ -75,7 +75,7 @@ class Board
 
 
   def victory?(current_player, status)
-      winner = "#{current_player.name} a gagné"
+    winner = "#{current_player.name} a gagné"
   # On détermine la victoire selon l'équivalence de 3 cases clés (cf. règles) + l'égalité dans la nullité ("_") ne compte pas bien évidemment
     if (@a1.state == @a2.state) && (@a2.state == @a3.state) && (@a1.state != "_" )
       puts winner
