@@ -45,7 +45,7 @@ class Game
     @count_turns += 1
       if @count_turns == 9 && @status == "on going" #si pas de on going, cela signifie que quelqu'un a gagné et qu'il n'y a pas de match nuls.
         @status = "nul"
-        puts "Match nul"
+        puts "Match nul \u{1f43c}"
         puts ""
         Show.new.show_board(@board) 
         puts ""
@@ -68,7 +68,7 @@ class Game
   end   
 
   def game_end
-    puts "On est morts, on a trop galéré, salut!"
+    puts "On est morts, on a trop galéré, salut! \u{1f91F}"
   end
 
 end

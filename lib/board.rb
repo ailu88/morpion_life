@@ -30,12 +30,12 @@ class Board
 
   def play_turn(current_player)
   # Demander le choix auprès du joueur
-    puts "#{current_player.name}, que veux-tu jouer ?"
+    puts "#{current_player.name}, que veux-tu jouer \u{1f916} ?"
     player_case = gets.chomp.upcase
   
   # Vérifier que le choix 1/ existe et 2/ est disponible grâce au free_array
     while !@free_array.include?(player_case)
-      puts "Il faut rentrer une case disponible."
+      puts "Il faut rentrer une case disponible \u{1f609}"
       player_case = gets.chomp.upcase
     end 
 
@@ -75,7 +75,7 @@ class Board
 
 
   def victory?(current_player, status)
-    winner = "#{current_player.name} a gagné"
+    winner = "#{current_player.name} a gagné! Bravo! \u{1f600}"
   # On détermine la victoire selon l'équivalence de 3 cases clés (cf. règles) + l'égalité dans la nullité ("_") ne compte pas bien évidemment
     if (@a1.state == @a2.state) && (@a2.state == @a3.state) && (@a1.state != "_" )
       puts winner
