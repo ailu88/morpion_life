@@ -75,30 +75,31 @@ class Board
 
 
   def victory?(current_player, status)
+      winner = "#{current_player.name} a gagné"
   # On détermine la victoire selon l'équivalence de 3 cases clés (cf. règles) + l'égalité dans la nullité ("_") ne compte pas bien évidemment
     if (@a1.state == @a2.state) && (@a2.state == @a3.state) && (@a1.state != "_" )
-      puts "#{current_player.name} a gagné"
+      puts winner
       return true
     elsif (@b1.state == @b2.state) && (@b2.state == @b3.state) && (@b1.state != "_" )
-      puts "#{current_player.name} a gagné"
+      puts winner 
       return true
     elsif (@c1.state == @c2.state) && (@c2.state == @c3.state) && (@c1.state != "_" )
-      puts "#{current_player.name} a gagné"
+      puts winner 
       return true
     elsif (@a1.state == @b1.state) && (@b1.state == @c1.state) && (@a1.state != "_" )
-      puts "#{current_player.name} a gagné"
+      puts winner 
       return true
     elsif (@a2.state == @b2.state) && (@b2.state == @c2.state) && (@a2.state != "_" )
-      puts "#{current_player.name} a gagné"
+      puts winner 
       return true
     elsif (@a3.state == @b3.state) && (@b3.state == @c3.state) && (@a3.state != "_" )
-      puts "#{current_player.name} a gagné"
+      puts winner 
       return true
     elsif (@a1.state == @b2.state) && (@b2.state == @c3.state) && (@a1.state != "_" )
-      puts "#{current_player.name} a gagné"
+      puts winner
       return true
     elsif (@a3.state == @b2.state) && (@b2.state == @c1.state) && (@a3.state != "_" )
-      puts "#{current_player.name} a gagné"
+      puts winner
       return true
     else
     end
