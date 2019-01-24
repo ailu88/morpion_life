@@ -8,7 +8,6 @@ attr_reader :name, :sign
   	@name = gets.chomp
   	puts "choisit ton signe ?"
   	print "> "
-  	@sign = gets.chomp
-    #TO DO : doit régler son nom et sa valeur
+  	@sign = gets.chomp[0]
   end
- end
+end

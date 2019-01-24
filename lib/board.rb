@@ -2,13 +2,10 @@ require 'boardcase'
 require 'game'
 
 class Board
-  #TO DO : la classe a 1 attr_accessor : un array/hash qui contient les BoardCases.
-  attr_accessor :array_of_rows, :count_turn, :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3
-  #Optionnellement on peut aussi lui rajouter un autre sous le nom @count_turn pour compter le nombre de coups joué
+  attr_accessor :array_of_rows, :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3
   
   def initialize
-    #TO DO :
-    #Quand la classe s'initialize, elle doit créer 9 instances BoardCases
+    #Initialisation des instances de cases
     @a1 = BoardCases.new("A1")
     @a2 = BoardCases.new("A2")   
     @a3 = BoardCases.new("A3")
@@ -18,77 +15,94 @@ class Board
     @c1 = BoardCases.new("C1")
     @c2 = BoardCases.new("C2")
     @c3 = BoardCases.new("C3")
-    #Ces instances sont rangées dans un array/hash qui est l'attr_accessor de la classe
+    #Initialisation du board 
     @array_of_rows = [
       [@a1, @a2, @a3],
       [@b1, @b2, @b3],
       [@c1, @c2, @c3]
     ]
+    # Initialisation du array indiquant les choix disponibles qui permettent de savoir si une case a déjà été remplie ou non
+    @free_array = [
+      "A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"
+    ]
   end
 
+
   def play_turn(current_player)
-    #TO DO : une méthode qui :
-    #1) demande au bon joueur ce qu'il souhaite faire
-    puts "#{current_player.name} Que veux-tu jouer ?"
+  # Prendre le choix auprès du joueur
+    puts "#{current_player.name}, que veux-tu jouer ?"
     player_case = gets.chomp.upcase
-    #2) change la BoardCase jouée en fonction de la valeur du joueur (X ou O)
+  
+  # Vérifier que le choix 1/ existe et 2/ est disponible grâce au free_array
+    while !@free_array.include?(player_case)
+      puts "Il faut rentrer une case disponible."
+      player_case = gets.chomp.upcase
+    end 
+
+  # Le underscore de la case est remplacé par le signe choisi le joueur pour la case sélectionnée
+  # La case choisie est retirée du free array
     case player_case
-    when "A1"
-      @a1.state = current_player.sign
-    when "A2"
-      @a2.state = current_player.sign
-    when "A3"
-      @a3.state = current_player.sign
-    when "B1"
-      @b1.state = current_player.sign
-    when "B2"
-      @b2.state = current_player.sign
-    when "B3"
-      @b3.state = current_player.sign
-    when "C1"
-      @c1.state = current_player.sign
-    when "C2"
-      @c2.state = current_player.sign
-    when "C3"
-      @c3.state = current_player.sign
+      when "A1"
+        @a1.state = current_player.sign
+        @free_array.delete("A1")
+      when "A2"
+        @a2.state = current_player.sign
+        @free_array.delete("A2")
+      when "A3"
+        @a3.state = current_player.sign
+        @free_array.delete("A3")
+      when "B1"
+        @b1.state = current_player.sign
+        @free_array.delete("B1")
+      when "B2"
+        @b2.state = current_player.sign
+        @free_array.delete("B2")
+      when "B3"
+        @b3.state = current_player.sign
+        @free_array.delete("B3")
+      when "C1"
+        @c1.state = current_player.sign
+        @free_array.delete("C1")
+      when "C2"
+        @c2.state = current_player.sign
+        @free_array.delete("C2")
+      when "C3"
+        @c3.state = current_player.sign
+        @free_array.delete("C3")
     end
 
   end
 
-    #2) change la BoardCase jouée en fonction de la valeur du joueur (X ou O)
 
-  def victory?
-    #TO DO : une méthode qui vérifie le plateau et indique s'il y a un vainqueur ou match nul
-    # if (a1.value == a2.value) && (a2.value == a3.value) && (a3.value != 0)
-    #   puts "victoire #{current_player}"
-    #   game.status = "victoire"
-    # elsif (b1.value == b2.value) && (b2.value == b3.value) && (b3.value != 0)
-    #   puts "victoire #{current_player}"
-    #   game.status = "victoire"
-    # elsif (c1.value == c2.value) && (c2.value == c3.value) && (c3.value != 0)
-    #   puts "victoire #{current_player}"
-    #   game.status = "victoire"
-    # elsif (a1.value == b1.value && b1.value == c1.value && c1.value != 0
-    #   puts "victoire #{current_player}"
-    #   game.status = "victoire"
-    # elsif a2.value == b2.value && b2.value == c2.value && c2.value != 0
-    #   puts "victoire #{current_player}"
-    #   game.status = "victoire"
-    # elsif a3.value == b1.value && b1.value == c1.value && c1.value != 0
-    #   puts "victoire #{current_player}" 
-    #   game.status = "victoire"
-    # elsif a1.value == b2.value && b1.value == c3.value && c3.value != 0
-    #   puts "victoire #{current_player}" 
-    #   game.status = "victoire"
-    # elsif A3 == B2 && B2 == C1 && C1 != 0
-    #   puts "victoire #{current_player}"
-    #   game.status = "victoire"
-    # elsif count_turn == 9
-    #   puts "match nul, try again."
-    #   game.status = "nul"
-    # else
-    #   puts "tour au joueur suivant"
-    #   count_turn += 1
-    # end
+  def victory?(current_player, status)
+  # On détermine la victoire selon l'équivalence de 3 cases clés (cf. règles) + l'égalité dans la nullité ("_") ne compte pas bien évidemment
+    if (@a1.state == @a2.state) && (@a2.state == @a3.state) && (@a1.state != "_" )
+      puts "#{current_player.name} a gagné"
+      return true
+    elsif (@b1.state == @b2.state) && (@b2.state == @b3.state) && (@b1.state != "_" )
+      puts "#{current_player.name} a gagné"
+      return true
+    elsif (@c1.state == @c2.state) && (@c2.state == @c3.state) && (@c1.state != "_" )
+      puts "#{current_player.name} a gagné"
+      return true
+    elsif (@a1.state == @b1.state) && (@b1.state == @c1.state) && (@a1.state != "_" )
+      puts "#{current_player.name} a gagné"
+      return true
+    elsif (@a2.state == @b2.state) && (@b2.state == @c2.state) && (@a2.state != "_" )
+      puts "#{current_player.name} a gagné"
+      return true
+    elsif (@a3.state == @b3.state) && (@b3.state == @c3.state) && (@a3.state != "_" )
+      puts "#{current_player.name} a gagné"
+      return true
+    elsif (@a1.state == @b2.state) && (@b2.state == @c3.state) && (@a1.state != "_" )
+      puts "#{current_player.name} a gagné"
+      return true
+    elsif (@a3.state == @b2.state) && (@b2.state == @c1.state) && (@a3.state != "_" )
+      puts "#{current_player.name} a gagné"
+      return true
+    else
+    end
+
   end
+
 end
