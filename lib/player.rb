@@ -6,7 +6,7 @@ attr_reader :name, :sign
   	puts " Quel est ton nom ?"
   	print "> "
   	@name = gets.chomp
-  	puts "choisit ton signe ?"
+  	puts "Choisis ton signe !"
   	print "> "
   	@sign = gets.chomp[0]
   end
