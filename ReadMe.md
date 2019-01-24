@@ -2,8 +2,7 @@
 # Project Title - TicTacToe
 
 Holà Correctorios! 
-Voici notre simulation du jeu Morpion sur lequel on aura bien bien bien galéré...  :sweat-smile:
-
+Voici notre simulation du jeu Morpion sur lequel on aura bien bien bien galéré...  :tired-face:  :tired-face:  :tired-face:
 
 ## Getting Started
 
@@ -14,9 +13,9 @@ ruby app.rb
 
 # Built with :heart:
 
-> Viviane de Petigny
-> Bastien Hiel
-> Mélanie Nguon
+Viviane de Petigny  
+Bastien Hiel  
+Mélanie Nguon
 
 <!-- ### Prerequisites
 
