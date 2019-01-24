@@ -21,7 +21,7 @@ class Board
       [@b1, @b2, @b3],
       [@c1, @c2, @c3]
     ]
-    # Initialisation du array indiquant les choix disponibles qui permettent de savoir si une case a déjà été remplie ou non
+    # Initialisation de l'array indiquant les choix disponibles qui permettent de savoir si une case a déjà été remplie ou non
     @free_array = [
       "A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"
     ]
@@ -29,7 +29,7 @@ class Board
 
 
   def play_turn(current_player)
-  # Prendre le choix auprès du joueur
+  # Demander le choix auprès du joueur
     puts "#{current_player.name}, que veux-tu jouer ?"
     player_case = gets.chomp.upcase
   
@@ -39,7 +39,7 @@ class Board
       player_case = gets.chomp.upcase
     end 
 
-  # Le underscore de la case est remplacé par le signe choisi le joueur pour la case sélectionnée
+  # Le underscore de la case est remplacé par le signe choisi par le joueur pour la case sélectionnée
   # La case choisie est retirée du free array
     case player_case
       when "A1"
